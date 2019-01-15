@@ -1,0 +1,73 @@
+#re
+正则
+re.sub(把什么，替换成什么，在哪个地方替换)
+
+temp = re.findall(r'"playurl":"http://.*\.m4a[\w=&?]*"', str(html.content))
+FileUrl = temp[0][11:-1]
+print(FileUrl)//全民K歌源码正则查找url
+
+from copy import deepcopy
+a=b
+c=deepcopy(a)
+
+#接收json 转换为字典  再转为字符串 保存
+url='https://www.toutiao.com/api/pc/focus/'
+response=requests.get(url)
+br=json.loads(response.content)#json.loads()转为字典
+with open("douban.json","w",encoding="utf-8") as f :
+    f.write(json.dumps(br,ensure_ascii=sFalse,indent=2)) #json.dumps()转为字符串类型
+#随机生成指定位数的数字
+import random
+j = 4
+while True:
+    id = []
+    ipp = ''.join(str(i) for i in random.sample(range(0,9),j))    # sample(seq, n) 从序列seq中选择n个随机且独立的元素；
+    id.append(ipp)
+    print(id)
+#Django篇：
+django-admin startproject project_name
+python manage.py startapp  appname
+
+
+#scrapy篇：
+scrapy startproject name 创建scrapy 项目
+scrapy genspider name "范围"——scrapy genspider itcast 'itcast.cn'
+scrapy crawl itcast 
+scrapy genspider -t crawl  name  name.com
+从本地读取start_urls:
+scrapy crawl test_headers -a filename=json.txt
+
+随机userAgent:
+class RandomUserAgent(object):
+    def __init__(self, agents):
+        self.agents = agents
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(crawler.settings.getlist('USER_AGENTS'))
+
+    def process_request(self, request, spider):
+        request.headers.setdefault('User-Agent', random.choice(self.agents))
+
+sql 注入：
+‘ or 1=2 or '1
+
+数据库备份：
+mysql  dump -u root -p 密码 name > name.sql
+恢复：
+mysql  dump -u root -p  new_name < name.sql
+关联插入字段
+update ktx_book_novel a set book_user=(select book_user from ktx_novel b where b.book_name = a.book_name LIMIT 1);
+
+crawl spider:
+rules = (
+        Rule(LinkExtractor(allow=r'/web/site0/tab5241/info\d+\.htm'), callback='parse_item'),
+        Rule(LinkExtractor(allow=r'/web/site0/tab5241/module14458/page\d+\.htm'),follow=True)
+    )
+
+    def parse_item(self, response):
+        item = {}
+        item["title"]=re.findall("<!--TitleStart-->(.*?)<!--TitleEnd-->",response.body.decode())[0]
+        #item["publish_date"]=re.findall("发布时间：(20\d{2}-\d{2}-\d{2})",response.body.decode())[0]
+        item["publish_time"]=re.findall("发布时间：(20\d{2}-\d{2}-\d{2})",response.body.decode())[0]
+        print(item)
