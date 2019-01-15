@@ -1,5 +1,5 @@
 #re
-正则
+正则表达
 re.sub(把什么，替换成什么，在哪个地方替换)
 
 temp = re.findall(r'"playurl":"http://.*\.m4a[\w=&?]*"', str(html.content))
